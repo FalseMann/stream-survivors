@@ -1,0 +1,29 @@
+{
+  "name": "stream-survivors",
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "lint": "xo --fix",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@pixi/sound": "^5.2.0",
+    "pixi.js": "^7.2.4"
+  },
+  "devDependencies": {
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.4",
+    "xo": "^0.55.0"
+  },
+  "lint-staged": {
+    "*.{html,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "xo --fix"
+    ]
+  }
+}
