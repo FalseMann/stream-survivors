@@ -1,127 +1,175 @@
+{"frames": {
+
+"Bits/1.png":
 {
-  "frames": {
-    "Bits/1.png": {
-      "frame": { "x": 1181, "y": 0, "w": 41, "h": 34 },
-      "rotated": true,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 3, "w": 41, "h": 34 },
-      "sourceSize": { "w": 42, "h": 42 }
-    },
-    "Bits/100.png": {
-      "frame": { "x": 1143, "y": 42, "w": 34, "h": 42 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 3, "y": 0, "w": 34, "h": 42 },
-      "sourceSize": { "w": 42, "h": 42 }
-    },
-    "Bits/1000.png": {
-      "frame": { "x": 1143, "y": 84, "w": 41, "h": 41 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 41, "h": 41 },
-      "sourceSize": { "w": 42, "h": 42 }
-    },
-    "Bits/5000.png": {
-      "frame": { "x": 1177, "y": 42, "w": 38, "h": 41 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 3, "y": 0, "w": 38, "h": 41 },
-      "sourceSize": { "w": 42, "h": 42 }
-    },
-    "Bits/10000.png": {
-      "frame": { "x": 1143, "y": 0, "w": 42, "h": 38 },
-      "rotated": true,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 3, "w": 42, "h": 38 },
-      "sourceSize": { "w": 42, "h": 42 }
-    },
-    "Emotes/DansGame.png": {
-      "frame": { "x": 618, "y": 0, "w": 106, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 11, "y": 0, "w": 106, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/HotPokket.png": {
-      "frame": { "x": 378, "y": 0, "w": 122, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 3, "y": 0, "w": 122, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/Jebaited.png": {
-      "frame": { "x": 500, "y": 0, "w": 118, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 7, "y": 0, "w": 118, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/Kappa.png": {
-      "frame": { "x": 830, "y": 0, "w": 98, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 15, "y": 0, "w": 98, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/Kreygasm.png": {
-      "frame": { "x": 928, "y": 0, "w": 90, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 19, "y": 0, "w": 90, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/LUL.png": {
-      "frame": { "x": 0, "y": 0, "w": 128, "h": 128 },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/ResidentSleeper.png": {
-      "frame": { "x": 253, "y": 0, "w": 128, "h": 125 },
-      "rotated": true,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 3, "w": 128, "h": 125 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/SMOrc.png": {
-      "frame": { "x": 128, "y": 0, "w": 125, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/twitchRaid.png": {
-      "frame": { "x": 1018, "y": 0, "w": 125, "h": 125 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 125 },
-      "sourceSize": { "w": 128, "h": 128 }
-    },
-    "Emotes/WutFace.png": {
-      "frame": { "x": 724, "y": 0, "w": 106, "h": 128 },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": { "x": 11, "y": 0, "w": 106, "h": 128 },
-      "sourceSize": { "w": 128, "h": 128 }
-    }
-  },
-  "animations": {
-    "Bits": [
-      "Bits/1.png",
-      "Bits/100.png",
-      "Bits/1000.png",
-      "Bits/5000.png",
-      "Bits/10000.png"
-    ]
-  },
-  "meta": {
-    "app": "https://www.codeandweb.com/texturepacker",
-    "version": "1.1",
-    "image": "spritesheet.png",
-    "format": "RGBA8888",
-    "size": { "w": 1215, "h": 128 },
-    "scale": "1",
-    "smartupdate": "$TexturePacker:SmartUpdate:d2465fedb023a511a7edf0a7bba0bd2a:c1a368ab40cb653f2a32df641c19d26b:729adc6043343cfda41c447ce8f464d6$"
-  }
+	"frame": {"x":1808,"y":0,"w":41,"h":34},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":41,"h":34},
+	"sourceSize": {"w":42,"h":42}
+},
+"Bits/100.png":
+{
+	"frame": {"x":1770,"y":42,"w":34,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":34,"h":42},
+	"sourceSize": {"w":42,"h":42}
+},
+"Bits/1000.png":
+{
+	"frame": {"x":1770,"y":84,"w":41,"h":41},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":41,"h":41},
+	"sourceSize": {"w":42,"h":42}
+},
+"Bits/5000.png":
+{
+	"frame": {"x":1804,"y":42,"w":38,"h":41},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":38,"h":41},
+	"sourceSize": {"w":42,"h":42}
+},
+"Bits/10000.png":
+{
+	"frame": {"x":1770,"y":0,"w":42,"h":38},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":42,"h":38},
+	"sourceSize": {"w":42,"h":42}
+},
+"Cat/Mad.png":
+{
+	"frame": {"x":1006,"y":0,"w":128,"h":121},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":7,"w":128,"h":121},
+	"sourceSize": {"w":128,"h":128}
+},
+"Cat/Sad.png":
+{
+	"frame": {"x":509,"y":0,"w":128,"h":125},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128}
+},
+"Cat/Smile.png":
+{
+	"frame": {"x":634,"y":0,"w":128,"h":125},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128}
+},
+"Cat/Weird.png":
+{
+	"frame": {"x":0,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/DansGame.png":
+{
+	"frame": {"x":1245,"y":0,"w":106,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":0,"w":106,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/HotPokket.png":
+{
+	"frame": {"x":884,"y":0,"w":122,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":122,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/Jebaited.png":
+{
+	"frame": {"x":1127,"y":0,"w":118,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":0,"w":118,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/Kappa.png":
+{
+	"frame": {"x":1457,"y":0,"w":98,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":0,"w":98,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/Kreygasm.png":
+{
+	"frame": {"x":1555,"y":0,"w":90,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":0,"w":90,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/LUL.png":
+{
+	"frame": {"x":128,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/ResidentSleeper.png":
+{
+	"frame": {"x":759,"y":0,"w":128,"h":125},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/SMOrc.png":
+{
+	"frame": {"x":384,"y":0,"w":125,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/twitchRaid.png":
+{
+	"frame": {"x":1645,"y":0,"w":125,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":125},
+	"sourceSize": {"w":128,"h":128}
+},
+"Emotes/WutFace.png":
+{
+	"frame": {"x":1351,"y":0,"w":106,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":0,"w":106,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Environment/Grass.png":
+{
+	"frame": {"x":256,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+}},
+"animations": {
+	"Bits": ["Bits/1.png","Bits/100.png","Bits/1000.png","Bits/5000.png","Bits/10000.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "spritesheet.webp",
+	"format": "RGBA8888",
+	"size": {"w":1842,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:83b62fd150c4c3dd497ba97d6a84e1a0:7adbb2a2804adcad73cd07350443dabc:22ac5421178cbce5983ea5287fcc2d20$"
+}
 }
