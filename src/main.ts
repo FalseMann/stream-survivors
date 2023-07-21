@@ -32,19 +32,19 @@ window.addEventListener('keyup', (event: KeyboardEvent) => {
 app.ticker.add(() => {
 	const speed = 10;
 
-	if (keys.KeyW) {
+	if (keys.KeyW || keys.ArrowUp) {
 		grass.tilePosition.y += speed;
 	}
 
-	if (keys.KeyA) {
+	if (keys.KeyA || keys.ArrowLeft) {
 		grass.tilePosition.x += speed;
 	}
 
-	if (keys.KeyS) {
+	if (keys.KeyS || keys.ArrowDown) {
 		grass.tilePosition.y -= speed;
 	}
 
-	if (keys.KeyD) {
+	if (keys.KeyD || keys.ArrowRight) {
 		grass.tilePosition.x -= speed;
 	}
 
