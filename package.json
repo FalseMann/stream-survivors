@@ -5,7 +5,8 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "lint": "xo --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@pixi/sound": "^5.2.0",
@@ -13,6 +14,7 @@
     "solid-js": "^1.7.8"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "typescript": "^5.1.6",
