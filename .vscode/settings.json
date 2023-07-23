@@ -15,6 +15,10 @@
     "editor.defaultFormatter": "samverschueren.linter-xo",
     "editor.formatOnSave": true
   },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "samverschueren.linter-xo",
+    "editor.formatOnSave": true
+  },
   "xo.enable": true,
   "xo.format.enable": true
 }

@@ -13,44 +13,17 @@ export class Game {
 	world: World;
 
 	constructor(public sprites: Spritesheet) {
-		this.app = new Application({
-			hello: true,
-			resizeTo: window,
-		});
-		this.player = new Player({sprites});
-		this.world = new World({sprites, height: this.app.screen.height, width: this.app.screen.width});
+		this.app = new Application({height: 1080, width: 1920});
+		this.player = new Player();
+		this.world = new World({height: this.app.screen.height, width: this.app.screen.width});
 
-		this.player.sprite.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
+		this.app.stage.addChild(this.world);
+		this.app.stage.addChild(this.player);
 
-		this.app.stage.addChild(this.world.container);
-		this.app.stage.addChild(this.player.sprite);
+		this.player.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
 
-		const keys: Record<string, boolean> = {};
-		window.addEventListener('keydown', (event: KeyboardEvent) => {
-			keys[event.code] = true;
-		});
-		window.addEventListener('keyup', (event: KeyboardEvent) => {
-			keys[event.code] = false;
-		});
-
-		this.app.ticker.add(() => {
-			const speed = 10;
-
-			if (keys.KeyW || keys.ArrowUp) {
-				this.world.grass.tilePosition.y += speed;
-			}
-
-			if (keys.KeyA || keys.ArrowLeft) {
-				this.world.grass.tilePosition.x += speed;
-			}
-
-			if (keys.KeyS || keys.ArrowDown) {
-				this.world.grass.tilePosition.y -= speed;
-			}
-
-			if (keys.KeyD || keys.ArrowRight) {
-				this.world.grass.tilePosition.x -= speed;
-			}
+		this.app.ticker.add(delta => {
+			this.world.tick(delta);
 		});
 	}
 }

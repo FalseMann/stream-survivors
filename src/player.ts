@@ -1,13 +1,9 @@
-import {Sprite} from 'pixi.js';
-import {Entity, type EntityOptions} from './entity.js';
+import {Sprite, Texture} from 'pixi.js';
 
-export class Player extends Entity {
-	sprite: Sprite;
-
-	constructor(options: EntityOptions) {
-		super(options);
-		const texture = this.sprites.textures['Emotes/Kappa.png'];
-		this.sprite = new Sprite(texture);
-		this.sprite.anchor.set(0.5);
+export class Player extends Sprite {
+	constructor() {
+		const texture = Texture.from('Emotes/Kappa.png');
+		super(texture);
+		this.anchor.set(0.5);
 	}
 }

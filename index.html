@@ -9,12 +9,32 @@
         margin: 0;
         padding: 0;
         font-family: sans-serif;
-        background-color: #fff;
+        background-color: #000;
         overflow: hidden;
+      }
+
+      #screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #game,
+      #ui {
+        width: 1920px;
+        height: 1080px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     </style>
   </head>
   <body>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="screen">
+      <div id="game"></div>
+      <div id="ui"></div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
