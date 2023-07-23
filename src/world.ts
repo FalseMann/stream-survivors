@@ -11,7 +11,7 @@ export type WorldOptions = {
 export class World extends Container {
 	enemies: Enemy[] = [];
 	entities = new Container();
-	enemySpawnRate = 0.1;
+	enemySpawnRate = 0.01;
 	ground: TilingSprite;
 	player: Player;
 	playerContainer = new Container();
@@ -20,15 +20,15 @@ export class World extends Container {
 	playerSpeed = 7;
 	keyManager = new KeyManager();
 
-	constructor(options: WorldOptions) {
+	constructor({height, width}: WorldOptions) {
 		super();
 		const groundTexture = Texture.from('Environment/Grass.png');
-		this.ground = new TilingSprite(groundTexture, options.width, options.height);
+		this.ground = new TilingSprite(groundTexture, width, height);
 		this.player = new Player();
-		this.player.position.set(options.width / 2, options.height / 2);
+		this.player.position.set(width / 2, height / 2);
 		this.playerContainer.addChild(this.player);
-		this.playerX = options.width / 2;
-		this.playerY = options.height / 2;
+		this.playerX = width / 2;
+		this.playerY = height / 2;
 
 		this.addChild(this.ground);
 		this.addChild(this.entities);
