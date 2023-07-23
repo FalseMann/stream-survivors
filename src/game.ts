@@ -1,5 +1,4 @@
 import {Application, Assets, type Spritesheet} from 'pixi.js';
-import {Player} from './entities/player.js';
 import {World} from './world.js';
 
 export class Game {
@@ -13,8 +12,7 @@ export class Game {
 
 	constructor(public sprites: Spritesheet) {
 		this.app = new Application({height: 1080, width: 1920});
-		const player = new Player();
-		this.world = new World({height: this.app.screen.height, width: this.app.screen.width, player});
+		this.world = new World({height: this.app.screen.height, width: this.app.screen.width});
 
 		this.app.stage.addChild(this.world);
 

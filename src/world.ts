@@ -1,12 +1,11 @@
 import {Container, Texture, TilingSprite} from 'pixi.js';
 import {Enemy} from './entities/enemy.js';
-import {type Player} from './entities/player.js';
+import {Player} from './entities/player.js';
 import {KeyManager} from './util/key-manager.js';
 
 export type WorldOptions = {
 	height: number;
 	width: number;
-	player: Player;
 };
 
 export class World extends Container {
@@ -25,7 +24,7 @@ export class World extends Container {
 		super();
 		const groundTexture = Texture.from('Environment/Grass.png');
 		this.ground = new TilingSprite(groundTexture, options.width, options.height);
-		this.player = options.player;
+		this.player = new Player();
 		this.player.position.set(options.width / 2, options.height / 2);
 		this.playerContainer.addChild(this.player);
 		this.playerX = options.width / 2;
@@ -97,7 +96,7 @@ export class World extends Container {
 				// eslint-disable-next-line unicorn/prefer-dom-node-remove
 				this.entities.removeChild(enemy);
 				this.enemies.splice(i, 1);
-				this.player.hp -= 10;
+				this.player.setHp(this.player.hp - 10);
 			}
 		}
 	}
