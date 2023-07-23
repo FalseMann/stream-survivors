@@ -5,7 +5,7 @@ export class Player extends Sprite {
 	hpContainer: HpDisplay;
 
 	constructor() {
-		const texture = Texture.from('Emotes/Kappa.png');
+		const texture = Texture.from('Cat/Mad.png');
 		super(texture);
 		this.anchor.set(0.5);
 		this.hpContainer = new HpDisplay();
