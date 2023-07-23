@@ -1,5 +1,5 @@
 import {Application, Assets, type Spritesheet} from 'pixi.js';
-import {Player} from './player.js';
+import {Player} from './entities/player.js';
 import {World} from './world.js';
 
 export class Game {

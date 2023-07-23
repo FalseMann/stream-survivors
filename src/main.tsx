@@ -1,5 +1,5 @@
 import {render} from 'solid-js/web';
-import UI from './user-interface.jsx';
+import UI from './ui/index.jsx';
 import {Game} from './game.js';
 
 const game = await Game.create();

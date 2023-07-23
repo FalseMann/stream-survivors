@@ -1,6 +1,6 @@
 import {type JSX} from 'solid-js';
-import {Debugger} from './ui/debugger.jsx';
-import {type Game} from './game.js';
+import {type Game} from '../game.js';
+import {Debugger} from './debugger.jsx';
 
 type UiProps = {
 	game: Game;
