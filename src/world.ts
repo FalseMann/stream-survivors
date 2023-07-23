@@ -11,13 +11,13 @@ export type WorldOptions = {
 export class World extends Container {
 	enemies: Enemy[] = [];
 	entities = new Container();
-	enemySpawnRate = 0.01;
+	enemySpawnRate = 0.1;
 	ground: TilingSprite;
 	player: Player;
 	playerContainer = new Container();
 	playerX: number;
 	playerY: number;
-	playerSpeed = 10;
+	playerSpeed = 7;
 	keyManager = new KeyManager();
 
 	constructor(options: WorldOptions) {
@@ -96,7 +96,7 @@ export class World extends Container {
 				// eslint-disable-next-line unicorn/prefer-dom-node-remove
 				this.entities.removeChild(enemy);
 				this.enemies.splice(i, 1);
-				this.player.setHp(this.player.hp - 10);
+				this.player.hp -= 10;
 			}
 		}
 	}

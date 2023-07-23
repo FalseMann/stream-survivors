@@ -1,9 +1,9 @@
 import {Graphics, Sprite, Texture} from 'pixi.js';
 
 export class Player extends Sprite {
-	hp = 100;
 	hpContainer: Graphics;
 	hpEmptyContainer: Graphics;
+	private _hp = 100;
 
 	constructor() {
 		const texture = Texture.from('Emotes/Kappa.png');
@@ -19,8 +19,12 @@ export class Player extends Sprite {
 		this.addChild(this.hpContainer);
 	}
 
-	setHp(hp: number): void {
-		this.hp = hp;
+	get hp(): number {
+		return this._hp;
+	}
+
+	set hp(hp: number) {
+		this._hp = hp;
 		this.hpContainer.width = Math.max(this.hp, 0);
 	}
 }
