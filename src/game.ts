@@ -9,18 +9,14 @@ export class Game {
 	}
 
 	app: Application<HTMLCanvasElement>;
-	player: Player;
 	world: World;
 
 	constructor(public sprites: Spritesheet) {
 		this.app = new Application({height: 1080, width: 1920});
-		this.player = new Player();
-		this.world = new World({height: this.app.screen.height, width: this.app.screen.width});
+		const player = new Player();
+		this.world = new World({height: this.app.screen.height, width: this.app.screen.width, player});
 
 		this.app.stage.addChild(this.world);
-		this.app.stage.addChild(this.player);
-
-		this.player.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
 
 		this.app.ticker.add(delta => {
 			this.world.tick(delta);

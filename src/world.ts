@@ -1,47 +1,54 @@
 import {Container, Texture, TilingSprite} from 'pixi.js';
-import {KeyManager} from './util/key-manager.js';
 import {Enemy} from './entities/enemy.js';
+import {type Player} from './entities/player.js';
+import {KeyManager} from './util/key-manager.js';
 
 export type WorldOptions = {
 	height: number;
 	width: number;
+	player: Player;
 };
 
 export class World extends Container {
 	enemies: Enemy[] = [];
-	entities: Container;
-	enemySpawnRate: number;
+	entities = new Container();
+	enemySpawnRate = 0.01;
 	ground: TilingSprite;
+	player: Player;
+	playerContainer = new Container();
 	playerX: number;
 	playerY: number;
-	playerSpeed: number;
-	keyManager: KeyManager;
+	playerSpeed = 10;
+	keyManager = new KeyManager();
 
 	constructor(options: WorldOptions) {
 		super();
 		const groundTexture = Texture.from('Environment/Grass.png');
-		this.entities = new Container();
-		this.enemySpawnRate = 0.01;
 		this.ground = new TilingSprite(groundTexture, options.width, options.height);
-		this.keyManager = new KeyManager();
+		this.player = options.player;
+		this.player.position.set(options.width / 2, options.height / 2);
+		this.playerContainer.addChild(this.player);
 		this.playerX = options.width / 2;
 		this.playerY = options.height / 2;
-		this.playerSpeed = 10;
+
 		this.addChild(this.ground);
 		this.addChild(this.entities);
+		this.addChild(this.playerContainer);
 	}
 
 	tick(_delta: number) {
 		this.movePlayer();
 
 		if (Math.random() < this.enemySpawnRate) {
-			this.spawnEnemy();
+			const enemy = this.spawnEnemy();
+			this.enemies.push(enemy);
+			this.entities.addChild(enemy);
 		}
 
 		this.aggregateEnemies();
 	}
 
-	moveBy(x: number, y: number) {
+	moveBy(x: number, y: number): void {
 		this.ground.tilePosition.x -= x;
 		this.ground.tilePosition.y -= y;
 
@@ -52,7 +59,7 @@ export class World extends Container {
 		this.playerY += y;
 	}
 
-	movePlayer() {
+	movePlayer(): void {
 		let moveX = 0;
 		let moveY = 0;
 
@@ -75,8 +82,9 @@ export class World extends Container {
 		this.moveBy(moveX, moveY);
 	}
 
-	aggregateEnemies() {
-		for (const enemy of this.enemies) {
+	aggregateEnemies(): void {
+		for (let i = 0; i < this.enemies.length; i++) {
+			const enemy = this.enemies[i];
 			const dx = this.playerX - enemy.x;
 			const dy = this.playerY - enemy.y;
 			const angle = Math.atan2(dy, dx);
@@ -84,10 +92,17 @@ export class World extends Container {
 			const vy = Math.sin(angle) * 5;
 			enemy.x += vx;
 			enemy.y += vy;
+
+			if (Math.abs(dx) < enemy.width / 2 && Math.abs(dy) < enemy.height / 2) {
+				// eslint-disable-next-line unicorn/prefer-dom-node-remove
+				this.entities.removeChild(enemy);
+				this.enemies.splice(i, 1);
+				this.player.hp -= 10;
+			}
 		}
 	}
 
-	spawnEnemy() {
+	spawnEnemy(): Enemy {
 		const enemy = new Enemy();
 		const bounds = {
 			x1: this.playerX - (this.ground.width / 2) - enemy.width,
@@ -104,7 +119,6 @@ export class World extends Container {
 			enemy.y = bounds.y1 + (Math.random() * this.ground.height);
 		}
 
-		this.enemies.push(enemy);
-		this.entities.addChild(enemy);
+		return enemy;
 	}
 }
