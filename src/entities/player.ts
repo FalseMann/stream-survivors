@@ -25,6 +25,8 @@ export class Player extends Sprite {
 			this.texture = Texture.from('Cat/Weird.png');
 		} else if (hp > 25) {
 			this.texture = Texture.from('Cat/Sad.png');
+		} else {
+			this.texture = Texture.from('Cat/Mad.png');
 		}
 	}
 }
