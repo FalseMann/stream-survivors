@@ -36,9 +36,9 @@ export function Debugger({game}: DebuggerProps): JSX.Element {
 		});
 	});
 	return <pre style={`background-color:rgba(0, 0, 0, 0.5); color: #fff; margin: 0; font-size: 24px; display: ${visible() ? 'block' : 'none'}`}>
-    FPS: {fps()}<br/>
-    Player: X: {playerX()} Y: {playerY()}<br/>
+		FPS: {fps()}<br/>
+		Player: X: {playerX()} Y: {playerY()}<br/>
 		HP: {hp()}<br/>
-    Enemies: {enemyCount()}<br/>
+		Enemies: {enemyCount()}<br/>
 	</pre>;
 }

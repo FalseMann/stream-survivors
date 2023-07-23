@@ -11,7 +11,7 @@ export type WorldOptions = {
 export class World extends Container {
 	enemies: Enemy[] = [];
 	entities = new Container();
-	enemySpawnRate = 1;
+	enemySpawnRate = 0.01;
 	ground: TilingSprite;
 	player: Player;
 	playerContainer = new Container();
