@@ -1,5 +1,5 @@
 import {type JSX} from 'solid-js';
-import {Debugger} from './debugger.js';
+import {Debugger} from './ui/debugger.jsx';
 import {type Game} from './game.js';
 
 type UiProps = {

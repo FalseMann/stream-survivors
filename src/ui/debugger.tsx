@@ -1,5 +1,5 @@
 import {type JSX, createEffect, createSignal} from 'solid-js';
-import {type Game} from './game.js';
+import {type Game} from '../game.js';
 
 type DebuggerProps = {
 	game: Game;
@@ -9,6 +9,7 @@ export function Debugger({game}: DebuggerProps): JSX.Element {
 	const [playerX, setPlayerX] = createSignal(0);
 	const [playerY, setPlayerY] = createSignal(0);
 	const [fps, setFps] = createSignal(0);
+	const [visible, setVisible] = createSignal(false);
 
 	function tick() {
 		setFps(Math.round(game.app.ticker.FPS));
@@ -24,7 +25,15 @@ export function Debugger({game}: DebuggerProps): JSX.Element {
 			game.app.ticker.remove(tick);
 		};
 	});
-	return <pre style='background-color:rgba(0, 0, 0, 0.5); color: #fff; margin: 0; font-size: 24px'>
+
+	createEffect(() => {
+		window.addEventListener('keydown', event => {
+			if (event.key === '`') {
+				setVisible(!visible());
+			}
+		});
+	});
+	return <pre style={`background-color:rgba(0, 0, 0, 0.5); color: #fff; margin: 0; font-size: 24px; display: ${visible() ? 'block' : 'none'}`}>
     FPS: {fps()}<br/>
     Player: X: {playerX()} Y: {playerY()}<br/>
     Enemies: {enemyCount()}<br/>

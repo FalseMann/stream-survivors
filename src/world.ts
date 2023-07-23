@@ -20,7 +20,7 @@ export class World extends Container {
 		super();
 		const groundTexture = Texture.from('Environment/Grass.png');
 		this.entities = new Container();
-		this.enemySpawnRate = 1;
+		this.enemySpawnRate = 0.01;
 		this.ground = new TilingSprite(groundTexture, options.width, options.height);
 		this.playerX = options.width / 2;
 		this.playerY = options.height / 2;
