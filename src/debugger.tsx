@@ -8,8 +8,10 @@ export function Debugger({game}: DebuggerProps): JSX.Element {
 	const [enemyCount, setEnemyCount] = createSignal<number>(0);
 	const [playerX, setPlayerX] = createSignal(0);
 	const [playerY, setPlayerY] = createSignal(0);
+	const [fps, setFps] = createSignal(0);
 
 	function tick() {
+		setFps(Math.round(game.app.ticker.FPS));
 		setPlayerX(game.world.playerX);
 		setPlayerY(game.world.playerY);
 		setEnemyCount(game.world.enemies.length);
@@ -23,6 +25,7 @@ export function Debugger({game}: DebuggerProps): JSX.Element {
 		};
 	});
 	return <div style='background-color:rgba(0, 0, 0, 0.5); color: #fff'>
+    FPS: {fps()}<br/>
     Player X: {playerX()}<br/>
     Player Y: {playerY()}<br/>
     Enemies: {enemyCount()}<br/>
