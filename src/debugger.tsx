@@ -24,10 +24,9 @@ export function Debugger({game}: DebuggerProps): JSX.Element {
 			game.app.ticker.remove(tick);
 		};
 	});
-	return <div style='background-color:rgba(0, 0, 0, 0.5); color: #fff'>
+	return <pre style='background-color:rgba(0, 0, 0, 0.5); color: #fff; margin: 0; font-size: 24px'>
     FPS: {fps()}<br/>
-    Player X: {playerX()}<br/>
-    Player Y: {playerY()}<br/>
+    Player: X: {playerX()} Y: {playerY()}<br/>
     Enemies: {enemyCount()}<br/>
-	</div>;
+	</pre>;
 }
