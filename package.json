@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@pixi/sound": "^5.2.0",
+    "howler": "^2.2.3",
     "pixi.js": "^7.2.4",
-    "solid-js": "^1.7.8"
+    "solid-js": "^1.7.8",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/howler": "^2.2.7",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",

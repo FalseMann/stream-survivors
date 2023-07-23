@@ -1,12 +1,24 @@
+import {Howl} from 'howler';
 import {Container, Texture, TilingSprite} from 'pixi.js';
+import {z} from 'zod';
 import {Enemy} from './entities/enemy.js';
 import {Player} from './entities/player.js';
+import {sprite} from './sounds/likir.json';
 import {KeyManager} from './util/key-manager.js';
 
 export type WorldOptions = {
 	height: number;
 	width: number;
 };
+
+const soundSpriteSchema = z.record(z.tuple([z.number(), z.number()]));
+
+const audio = new Howl({
+	src: ['sounds/likir.mp3'],
+	sprite: soundSpriteSchema.parse(sprite),
+	volume: 0.25,
+});
+const sounds = ['damn_it', 'dang_it', 'help', 'ouch', 'upos', 'stupid_chat', 'yrudt', 'next_game', 'one_sec'];
 
 export class World extends Container {
 	enemies: Enemy[] = [];
@@ -18,6 +30,7 @@ export class World extends Container {
 	playerX: number;
 	playerY: number;
 	playerSpeed = 7;
+	paused = false;
 	keyManager = new KeyManager();
 
 	constructor({height, width}: WorldOptions) {
@@ -33,9 +46,26 @@ export class World extends Container {
 		this.addChild(this.ground);
 		this.addChild(this.entities);
 		this.addChild(this.playerContainer);
+		window.addEventListener('keydown', event => {
+			if (event.key === 'p') {
+				this.paused = !this.paused;
+			}
+
+			if (event.key === '-') {
+				this.enemySpawnRate = Math.max(this.enemySpawnRate - 0.01, 0);
+			}
+
+			if (event.key === '+') {
+				this.enemySpawnRate = Math.min(this.enemySpawnRate + 0.01, 1);
+			}
+		});
 	}
 
 	tick(_delta: number) {
+		if (this.paused) {
+			return;
+		}
+
 		this.movePlayer();
 
 		if (Math.random() < this.enemySpawnRate) {
@@ -97,6 +127,11 @@ export class World extends Container {
 				this.entities.removeChild(enemy);
 				this.enemies.splice(i, 1);
 				this.player.hp -= 10;
+				audio.play(sounds[Math.floor(Math.random() * sounds.length)]);
+
+				if (this.player.hp <= 0) {
+					this.reset();
+				}
 			}
 		}
 	}
@@ -119,5 +154,19 @@ export class World extends Container {
 		}
 
 		return enemy;
+	}
+
+	reset() {
+		this.player.hp = 100;
+		this.entities.position.set(0, 0);
+		this.playerX = this.ground.width / 2;
+		this.playerY = this.ground.height / 2;
+		this.player.position.set(this.ground.width / 2, this.ground.height / 2);
+		for (const enemy of this.enemies) {
+			// eslint-disable-next-line unicorn/prefer-dom-node-remove
+			this.entities.removeChild(enemy);
+		}
+
+		this.enemies = [];
 	}
 }
