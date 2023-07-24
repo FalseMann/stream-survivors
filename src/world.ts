@@ -20,6 +20,11 @@ const bgm = new Howl({
 	loop: true,
 	volume: 0.05,
 });
+const highohhBgm = new Howl({
+	src: ['sounds/highohhbgm.mp3'],
+	loop: true,
+	volume: 0.1,
+});
 const impact = new Howl({
 	src: ['sounds/impact.mp3'],
 	sprite: soundSpriteSchema.parse(impactSprite),
@@ -86,6 +91,7 @@ export class World extends Container {
 		window.addEventListener('keydown', event => {
 			if (event.key === 'm') {
 				bgm.mute(!bgm.mute());
+				highohh.mute(!highohh.mute());
 				likir.mute(!likir.mute());
 				impact.mute(!impact.mute());
 			}
@@ -113,9 +119,13 @@ export class World extends Container {
 			if (event.key === 'h') {
 				this.player.setIsHighohh(!this.player.isHighohh);
 				if (this.player.isHighohh) {
-					this.playerSpeed /= 2;
+					bgm.stop();
+					highohhBgm.play();
+					this.playerSpeed /= 1.5;
 				} else {
-					this.playerSpeed *= 2;
+					bgm.play();
+					highohhBgm.stop();
+					this.playerSpeed *= 1.5;
 				}
 			}
 		});
