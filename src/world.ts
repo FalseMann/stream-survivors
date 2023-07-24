@@ -1,9 +1,10 @@
 import {Howl} from 'howler';
-import {Container, Texture, TilingSprite} from 'pixi.js';
+import {Container, Text, Texture, TilingSprite} from 'pixi.js';
 import {z} from 'zod';
 import {Enemy} from './entities/enemy.js';
 import {Player} from './entities/player.js';
-import {sprite} from './sounds/likir.json';
+import {sprite as impactSprite} from './sounds/impact.json';
+import {sprite as likirSprite} from './sounds/likir.json';
 import {KeyManager} from './util/key-manager.js';
 
 export type WorldOptions = {
@@ -13,12 +14,18 @@ export type WorldOptions = {
 
 const soundSpriteSchema = z.record(z.tuple([z.number(), z.number()]));
 
-const audio = new Howl({
+const impact = new Howl({
+	src: ['sounds/impact.mp3'],
+	sprite: soundSpriteSchema.parse(impactSprite),
+	volume: 0.15,
+});
+const impactNoises = ['punch1', 'punch2', 'punch3'];
+const likir = new Howl({
 	src: ['sounds/likir.mp3'],
-	sprite: soundSpriteSchema.parse(sprite),
+	sprite: soundSpriteSchema.parse(likirSprite),
 	volume: 0.25,
 });
-const sounds = ['damn_it', 'dang_it', 'help', 'ouch', 'upos', 'stupid_chat', 'yrudt', 'next_game', 'one_sec'];
+const likirNoises = ['damn_it', 'dang_it', 'help', 'ouch', 'upos', 'stupid_chat', 'yrudt', 'next_game', 'one_sec'];
 
 export class World extends Container {
 	enemies: Enemy[] = [];
@@ -26,12 +33,13 @@ export class World extends Container {
 	enemySpawnRate = 0.01;
 	ground: TilingSprite;
 	player: Player;
-	playerContainer = new Container();
 	playerX: number;
 	playerY: number;
-	playerSpeed = 7;
+	playerSpeed = 6;
 	paused = false;
 	keyManager = new KeyManager();
+	timeElapsed = 0;
+	timeText: Text;
 
 	constructor({height, width}: WorldOptions) {
 		super();
@@ -39,14 +47,30 @@ export class World extends Container {
 		this.ground = new TilingSprite(groundTexture, width, height);
 		this.player = new Player();
 		this.player.position.set(width / 2, height / 2);
-		this.playerContainer.addChild(this.player);
 		this.playerX = width / 2;
 		this.playerY = height / 2;
 
 		this.addChild(this.ground);
 		this.addChild(this.entities);
-		this.addChild(this.playerContainer);
+		this.addChild(this.player);
+
+		this.timeText = new Text('0', {
+			fill: 'white',
+			fontFamily: 'Arial',
+			fontSize: 32,
+			fontWeight: 'bold',
+			padding: 8,
+		});
+
+		this.addChild(this.timeText);
+		this.timeText.anchor.set(0.5);
+		this.timeText.position.set(width / 2, height - 40);
+
 		window.addEventListener('keydown', event => {
+			if (event.key === 'm') {
+				likir.mute(!likir.mute());
+			}
+
 			if (event.key === 'p') {
 				this.paused = !this.paused;
 			}
@@ -65,6 +89,9 @@ export class World extends Container {
 		if (this.paused) {
 			return;
 		}
+
+		this.timeElapsed += _delta / 60;
+		this.timeText.text = `${this.timeElapsed.toFixed(0)}`;
 
 		this.movePlayer();
 
@@ -127,7 +154,11 @@ export class World extends Container {
 				this.entities.removeChild(enemy);
 				this.enemies.splice(i, 1);
 				this.player.hp -= 10;
-				audio.play(sounds[Math.floor(Math.random() * sounds.length)]);
+				impact.play(impactNoises[Math.floor(Math.random() * impactNoises.length)]);
+
+				if (Math.random() < 0.1) {
+					likir.play(likirNoises[Math.floor(Math.random() * likirNoises.length)]);
+				}
 
 				if (this.player.hp <= 0) {
 					this.reset();
@@ -162,6 +193,7 @@ export class World extends Container {
 		this.playerX = this.ground.width / 2;
 		this.playerY = this.ground.height / 2;
 		this.player.position.set(this.ground.width / 2, this.ground.height / 2);
+		this.timeElapsed = 0;
 		for (const enemy of this.enemies) {
 			// eslint-disable-next-line unicorn/prefer-dom-node-remove
 			this.entities.removeChild(enemy);
