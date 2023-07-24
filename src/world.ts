@@ -4,6 +4,7 @@ import {z} from 'zod';
 import {Enemy} from './entities/enemy.js';
 import {Player} from './entities/player.js';
 import {sprite as impactSprite} from './sounds/impact.json';
+import {sprite as highohhSprite} from './sounds/highohh.json';
 import {sprite as likirSprite} from './sounds/likir.json';
 import {KeyManager} from './util/key-manager.js';
 
@@ -25,11 +26,17 @@ const impact = new Howl({
 	volume: 0.2,
 });
 const impactNoises = ['punch1', 'punch2', 'punch3'];
+const highohh = new Howl({
+	src: ['sounds/highohh.mp3'],
+	sprite: soundSpriteSchema.parse(highohhSprite),
+	volume: 1.5,
+});
 const likir = new Howl({
 	src: ['sounds/likir.mp3'],
 	sprite: soundSpriteSchema.parse(likirSprite),
 	volume: 0.3,
 });
+const highohhNoises = ['bs', 'didnt_get_hit', 'ftg', 'laggy', 'shit_pants'];
 const likirNoises = ['damn_it', 'dang_it', 'help', 'ouch', 'upos', 'stupid_chat', 'yrudt', 'next_game', 'one_sec'];
 
 export class World extends Container {
@@ -102,6 +109,10 @@ export class World extends Container {
 			if (event.key === ' ' && this.canDash) {
 				this.dash();
 			}
+
+			if (event.key === 'h') {
+				this.player.setIsHighohh(!this.player.isHighohh);
+			}
 		});
 	}
 
@@ -139,7 +150,7 @@ export class World extends Container {
 		this.timeElapsed += _delta / 60;
 		this.bestTime = Math.max(this.timeElapsed, this.bestTime);
 		this.timeText.text = `Best time: ${this.bestTime.toFixed(0)}`;
-		this.enemySpawnRate = Math.min(this.enemySpawnRate + ((_delta / 60) * 0.001), 1);
+		this.enemySpawnRate = Math.min(this.enemySpawnRate + ((_delta / 60) * (this.player.isHighohh ? 0.01 : 0.001)), 1);
 		this.player.hp = Math.min(this.player.hp + ((_delta / 60)), 100);
 
 		this.movePlayer();
@@ -207,7 +218,11 @@ export class World extends Container {
 				this.screenShake();
 
 				if (Math.random() < 0.1) {
-					likir.play(likirNoises[Math.floor(Math.random() * likirNoises.length)]);
+					if (this.player.isHighohh) {
+						highohh.play(highohhNoises[Math.floor(Math.random() * highohhNoises.length)]);
+					} else {
+						likir.play(likirNoises[Math.floor(Math.random() * likirNoises.length)]);
+					}
 				}
 
 				if (this.player.hp <= 0) {

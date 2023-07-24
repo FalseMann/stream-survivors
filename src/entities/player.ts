@@ -3,6 +3,7 @@ import {HpDisplay} from './ui/hp-display.js';
 
 export class Player extends Sprite {
 	hpContainer: HpDisplay;
+	isHighohh = false;
 
 	constructor() {
 		const texture = Texture.from('Cat/Smile.png');
@@ -12,12 +13,24 @@ export class Player extends Sprite {
 		this.addChild(this.hpContainer);
 	}
 
+	setIsHighohh(isHighohh: boolean) {
+		this.isHighohh = isHighohh;
+
+		if (isHighohh) {
+			this.texture = Texture.from('Emotes/highohh.png');
+		}
+	}
+
 	get hp(): number {
 		return this.hpContainer.hp;
 	}
 
 	set hp(hp: number) {
 		this.hpContainer.hp = Math.max(hp, 0);
+
+		if (this.isHighohh) {
+			return;
+		}
 
 		if (hp > 80) {
 			this.texture = Texture.from('Cat/Smile.png');
