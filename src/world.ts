@@ -23,7 +23,7 @@ const bgm = new Howl({
 const impact = new Howl({
 	src: ['sounds/impact.mp3'],
 	sprite: soundSpriteSchema.parse(impactSprite),
-	volume: 0.2,
+	volume: 0.15,
 });
 const impactNoises = ['punch1', 'punch2', 'punch3'];
 const highohh = new Howl({
