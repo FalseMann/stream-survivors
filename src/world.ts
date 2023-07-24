@@ -33,6 +33,8 @@ const likir = new Howl({
 const likirNoises = ['damn_it', 'dang_it', 'help', 'ouch', 'upos', 'stupid_chat', 'yrudt', 'next_game', 'one_sec'];
 
 export class World extends Container {
+	canDamagePlayer = true;
+	canDash = true;
 	enemies: Enemy[] = [];
 	entities = new Container();
 	enemySpawnRate = 0.01;
@@ -43,6 +45,7 @@ export class World extends Container {
 	playerSpeed = 6;
 	paused = false;
 	keyManager = new KeyManager();
+	bestTime = 0;
 	timeElapsed = 0;
 	timeText: Text;
 
@@ -75,11 +78,17 @@ export class World extends Container {
 
 		window.addEventListener('keydown', event => {
 			if (event.key === 'm') {
+				bgm.mute(!bgm.mute());
 				likir.mute(!likir.mute());
+				impact.mute(!impact.mute());
 			}
 
 			if (event.key === 'p') {
 				this.paused = !this.paused;
+			}
+
+			if (event.key === 'r') {
+				this.reset();
 			}
 
 			if (event.key === '-') {
@@ -89,7 +98,34 @@ export class World extends Container {
 			if (event.key === '+') {
 				this.enemySpawnRate = Math.min(this.enemySpawnRate + 0.01, 1);
 			}
+
+			if (event.key === ' ' && this.canDash) {
+				this.dash();
+			}
 		});
+	}
+
+	dash() {
+		this.canDash = false;
+		this.canDamagePlayer = false;
+
+		const dashAmount = 10;
+		const dashDuration = 100;
+
+		const dx = this.keyManager.right() ? dashAmount : (this.keyManager.left() ? -dashAmount : 0);
+		const dy = this.keyManager.down() ? dashAmount : (this.keyManager.up() ? -dashAmount : 0);
+		const interval = setInterval(() => {
+			this.moveBy(dx, dy);
+		}, 1);
+
+		setTimeout(() => {
+			this.canDamagePlayer = true;
+			clearInterval(interval);
+		}, dashDuration);
+
+		setTimeout(() => {
+			this.canDash = true;
+		}, dashDuration * 8);
 	}
 
 	tick(_delta: number) {
@@ -98,7 +134,9 @@ export class World extends Container {
 		}
 
 		this.timeElapsed += _delta / 60;
-		this.timeText.text = `${this.timeElapsed.toFixed(0)}`;
+		this.bestTime = Math.max(this.timeElapsed, this.bestTime);
+		this.timeText.text = `Best time: ${this.bestTime.toFixed(0)}`;
+		this.enemySpawnRate = Math.min(this.enemySpawnRate + ((_delta / 60) * 0.001), 1);
 
 		this.movePlayer();
 
@@ -156,7 +194,7 @@ export class World extends Container {
 			enemy.x += vx;
 			enemy.y += vy;
 
-			if (Math.abs(dx) < enemy.width / 2 && Math.abs(dy) < enemy.height / 2) {
+			if (this.canDamagePlayer && Math.abs(dx) < enemy.width / 2 && Math.abs(dy) < enemy.height / 2) {
 				// eslint-disable-next-line unicorn/prefer-dom-node-remove
 				this.entities.removeChild(enemy);
 				this.enemies.splice(i, 1);
@@ -198,6 +236,7 @@ export class World extends Container {
 	reset() {
 		this.player.hp = 100;
 		this.entities.position.set(0, 0);
+		this.enemySpawnRate = 0.01;
 		this.playerX = this.ground.width / 2;
 		this.playerY = this.ground.height / 2;
 		this.player.position.set(this.ground.width / 2, this.ground.height / 2);
