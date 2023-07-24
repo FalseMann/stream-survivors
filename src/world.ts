@@ -112,6 +112,11 @@ export class World extends Container {
 
 			if (event.key === 'h') {
 				this.player.setIsHighohh(!this.player.isHighohh);
+				if (this.player.isHighohh) {
+					this.playerSpeed /= 2;
+				} else {
+					this.playerSpeed *= 2;
+				}
 			}
 		});
 	}
@@ -213,7 +218,8 @@ export class World extends Container {
 				// eslint-disable-next-line unicorn/prefer-dom-node-remove
 				this.entities.removeChild(enemy);
 				this.enemies.splice(i, 1);
-				this.player.hp -= 10;
+				this.player.hp -= this.player.isHighohh ? 1 : 10;
+
 				impact.play(impactNoises[Math.floor(Math.random() * impactNoises.length)]);
 				this.screenShake();
 
