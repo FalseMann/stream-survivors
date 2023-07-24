@@ -109,17 +109,20 @@ export class World extends Container {
 		this.canDash = false;
 		this.canDamagePlayer = false;
 
+		const leanAmount = 0.25;
 		const dashAmount = 10;
 		const dashDuration = 100;
-
 		const dx = this.keyManager.right() ? dashAmount : (this.keyManager.left() ? -dashAmount : 0);
 		const dy = this.keyManager.down() ? dashAmount : (this.keyManager.up() ? -dashAmount : 0);
 		const interval = setInterval(() => {
 			this.moveBy(dx, dy);
 		}, 1);
 
+		this.player.rotation = dx === 0 ? 0 : (dx > 0 ? leanAmount : -leanAmount);
+
 		setTimeout(() => {
 			this.canDamagePlayer = true;
+			this.player.rotation = 0;
 			clearInterval(interval);
 		}, dashDuration);
 
@@ -137,6 +140,7 @@ export class World extends Container {
 		this.bestTime = Math.max(this.timeElapsed, this.bestTime);
 		this.timeText.text = `Best time: ${this.bestTime.toFixed(0)}`;
 		this.enemySpawnRate = Math.min(this.enemySpawnRate + ((_delta / 60) * 0.001), 1);
+		this.player.hp = Math.min(this.player.hp + ((_delta / 60)), 100);
 
 		this.movePlayer();
 
