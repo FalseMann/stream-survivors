@@ -14,16 +14,21 @@ export type WorldOptions = {
 
 const soundSpriteSchema = z.record(z.tuple([z.number(), z.number()]));
 
+const bgm = new Howl({
+	src: ['sounds/bgm.wav'],
+	loop: true,
+	volume: 0.05,
+});
 const impact = new Howl({
 	src: ['sounds/impact.mp3'],
 	sprite: soundSpriteSchema.parse(impactSprite),
-	volume: 0.15,
+	volume: 0.2,
 });
 const impactNoises = ['punch1', 'punch2', 'punch3'];
 const likir = new Howl({
 	src: ['sounds/likir.mp3'],
 	sprite: soundSpriteSchema.parse(likirSprite),
-	volume: 0.25,
+	volume: 0.3,
 });
 const likirNoises = ['damn_it', 'dang_it', 'help', 'ouch', 'upos', 'stupid_chat', 'yrudt', 'next_game', 'one_sec'];
 
@@ -65,6 +70,8 @@ export class World extends Container {
 		this.addChild(this.timeText);
 		this.timeText.anchor.set(0.5);
 		this.timeText.position.set(width / 2, height - 40);
+
+		bgm.play();
 
 		window.addEventListener('keydown', event => {
 			if (event.key === 'm') {
@@ -155,6 +162,7 @@ export class World extends Container {
 				this.enemies.splice(i, 1);
 				this.player.hp -= 10;
 				impact.play(impactNoises[Math.floor(Math.random() * impactNoises.length)]);
+				this.screenShake();
 
 				if (Math.random() < 0.1) {
 					likir.play(likirNoises[Math.floor(Math.random() * likirNoises.length)]);
@@ -200,5 +208,18 @@ export class World extends Container {
 		}
 
 		this.enemies = [];
+	}
+
+	screenShake() {
+		const shakeAmount = 10;
+		const shakeDuration = 200;
+
+		const interval = setInterval(() => {
+			this.moveBy(-shakeAmount + (Math.random() * shakeAmount * 2), -shakeAmount + (Math.random() * shakeAmount * 2));
+		}, 1);
+
+		setTimeout(() => {
+			clearInterval(interval);
+		}, shakeDuration);
 	}
 }
